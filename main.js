@@ -591,8 +591,8 @@ class HubScene extends Phaser.Scene {
     // Shrine center decoration
     this.add.image(cx, cy, 'shrine_tile').setScale(SCALE).setDepth(3);
 
-    // Place pedestals around shrine (inner ring, close to center)
-    const pedRadius = 2.5;
+    // Place pedestals along star legs, spaced out from shrine center
+    const pedRadius = 6.5;
     const pedestalPositions = [];
     for (let i = 0; i < 5; i++) {
       const pp = starPoint(i, cx / TS, cy / TS, pedRadius);
@@ -1244,7 +1244,7 @@ class BadgeScene extends Phaser.Scene {
       const angle = STAR_ANGLES[i] * Math.PI / 180;
       const r = 35;
       const sx = cx + Math.cos(angle) * r;
-      const sy = 75 + Math.sin(angle) * r;
+      const sy = 60 + Math.sin(angle) * r;
       const quest = questData.quests[i];
       const s = this.add.image(sx, sy, 'shard').setScale(SCALE * 1.5)
         .setTint(parseInt(quest.shardColor)).setDepth(10);
@@ -1255,7 +1255,7 @@ class BadgeScene extends Phaser.Scene {
     }
 
     // Center glow
-    const glow = this.add.circle(cx, 75, 55, 0xffdd00, 0.15);
+    const glow = this.add.circle(cx, 60, 55, 0xffdd00, 0.15);
     this.tweens.add({ targets: glow, alpha: 0.03, scaleX: 1.6, scaleY: 1.6, duration: 2500, yoyo: true, repeat: -1 });
 
     // Title
