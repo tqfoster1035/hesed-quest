@@ -591,23 +591,14 @@ class HubScene extends Phaser.Scene {
     // Shrine center decoration
     this.add.image(cx, cy, 'shrine_tile').setScale(SCALE).setDepth(3);
 
-    // Place pedestals per-leg with individual tuning
-    // Index: 0=North(bedrock), 1=UpperRight(strength), 2=LowerRight(connector),
-    //        3=LowerLeft(truth), 4=UpperLeft(student)
-    const pedConfigs = [
-      { radius: 3.0, yOff:  0.8 },  // 0: North - pull down (bottom flush)
-      { radius: 3.5, yOff:  0.5 },  // 1: Upper-right - pull down slightly
-      { radius: 3.5, yOff: -1.0 },  // 2: Lower-right - push up (top flush)
-      { radius: 3.5, yOff: -1.0 },  // 3: Lower-left - push up (top flush)
-      { radius: 3.5, yOff:  0.5 },  // 4: Upper-left - pull down slightly
-    ];
+    // Place pedestals at star path intersections (halfway shrine to tips)
+    const pedRadius = 5.5;
     const pedestalPositions = [];
     for (let i = 0; i < 5; i++) {
-      const cfg = pedConfigs[i];
-      const pp = starPoint(i, cx / TS, cy / TS, cfg.radius);
+      const pp = starPoint(i, cx / TS, cy / TS, pedRadius);
       pedestalPositions.push({
         x: pp.x * TS + TS / 2,
-        y: pp.y * TS + TS / 2 + cfg.yOff * TS,
+        y: pp.y * TS + TS / 2,
         quest: QUEST_IDS[i]
       });
     }
