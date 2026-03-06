@@ -1239,45 +1239,111 @@ class BadgeScene extends Phaser.Scene {
       });
     }
 
-    // Badge - five shards arranged in a star
+    // Badge - five shards combine into star formation
+    const starCenterY = 75;
+    const starR = 45;
+    const starOrder = [0, 2, 4, 1, 3]; // connects every other point to draw a star
+
+    // Compute star tip positions
+    const tips = [];
     for (let i = 0; i < 5; i++) {
       const angle = STAR_ANGLES[i] * Math.PI / 180;
-      const r = 35;
-      const sx = cx + Math.cos(angle) * r;
-      const sy = 60 + Math.sin(angle) * r;
-      const quest = questData.quests[i];
-      const s = this.add.image(sx, sy, 'shard').setScale(SCALE * 1.2)
-        .setTint(parseInt(quest.shardColor)).setDepth(10);
-      this.tweens.add({
-        targets: s, y: sy - 5, duration: 1000 + i * 200,
-        yoyo: true, repeat: -1, ease: 'Sine.easeInOut'
+      tips.push({
+        x: cx + Math.cos(angle) * starR,
+        y: starCenterY + Math.sin(angle) * starR
       });
     }
 
-    // Center glow
-    const glow = this.add.circle(cx, 60, 55, 0xffdd00, 0.15);
-    this.tweens.add({ targets: glow, alpha: 0.03, scaleX: 1.6, scaleY: 1.6, duration: 2500, yoyo: true, repeat: -1 });
+    // Star outline graphics (drawn after shards fly in)
+    const starGfx = this.add.graphics().setDepth(8).setAlpha(0);
 
-    // Title
-    this.add.text(cx, 165, questData.badge.title, {
+    // Shards start scattered off-screen, fly into star tips
+    const shards = [];
+    for (let i = 0; i < 5; i++) {
+      const quest = questData.quests[i];
+      const startX = cx + (Math.random() - 0.5) * 600;
+      const startY = -60 - Math.random() * 100;
+      const s = this.add.image(startX, startY, 'shard').setScale(SCALE * 1.0)
+        .setTint(parseInt(quest.shardColor)).setDepth(10).setAlpha(0.7);
+      shards.push(s);
+
+      // Fly each shard to its star tip with staggered delay
+      this.tweens.add({
+        targets: s,
+        x: tips[i].x, y: tips[i].y,
+        alpha: 1, scale: SCALE * 1.0,
+        duration: 800, delay: i * 300,
+        ease: 'Back.easeOut',
+        onComplete: () => {
+          // Gentle hover after landing
+          this.tweens.add({
+            targets: s, y: tips[i].y - 4,
+            duration: 1200 + i * 150, yoyo: true, repeat: -1,
+            ease: 'Sine.easeInOut'
+          });
+        }
+      });
+    }
+
+    // After all shards land, draw the star connecting lines
+    this.time.delayedCall(5 * 300 + 900, () => {
+      // Draw star by connecting every other point
+      starGfx.lineStyle(2, 0xffdd00, 0.6);
+      starGfx.beginPath();
+      starGfx.moveTo(tips[starOrder[0]].x, tips[starOrder[0]].y);
+      for (let i = 1; i < 5; i++) {
+        starGfx.lineTo(tips[starOrder[i]].x, tips[starOrder[i]].y);
+      }
+      starGfx.closePath();
+      starGfx.strokePath();
+
+      // Fade in the star lines
+      this.tweens.add({ targets: starGfx, alpha: 1, duration: 600 });
+
+      // Center glow pulse
+      const glow = this.add.circle(cx, starCenterY, 55, 0xffdd00, 0).setDepth(7);
+      this.tweens.add({
+        targets: glow, alpha: 0.15, duration: 600,
+        onComplete: () => {
+          this.tweens.add({
+            targets: glow, alpha: 0.03, scaleX: 1.6, scaleY: 1.6,
+            duration: 2500, yoyo: true, repeat: -1
+          });
+        }
+      });
+    });
+
+    // Title (appears after star forms)
+    const titleText = this.add.text(cx, 165, questData.badge.title, {
       fontSize: '22px', fontFamily: 'monospace', color: '#ffdd00',
       fontStyle: 'bold', stroke: '#000000', strokeThickness: 3
-    }).setOrigin(0.5).setDepth(20);
+    }).setOrigin(0.5).setDepth(20).setAlpha(0);
 
-    // Scrollable message area
+    this.time.delayedCall(5 * 300 + 1500, () => {
+      this.tweens.add({ targets: titleText, alpha: 1, duration: 800 });
+    });
+
+    // Scrollable message area (fades in after title)
     const msgY = 195;
     const msg = this.add.text(cx, msgY, questData.badge.message, {
       fontSize: '13px', fontFamily: 'monospace', color: '#ffffff',
       wordWrap: { width: this.cameras.main.width - 40 },
       lineSpacing: 7, align: 'center'
-    }).setOrigin(0.5, 0);
+    }).setOrigin(0.5, 0).setAlpha(0);
+
+    this.time.delayedCall(5 * 300 + 2300, () => {
+      this.tweens.add({ targets: msg, alpha: 1, duration: 1200 });
+    });
 
     // Replay button
     const replayY = Math.max(msg.y + msg.height + 30, h - 50);
     const replay = this.add.text(cx, replayY, 'Play Again', {
       fontSize: '14px', fontFamily: 'monospace', color: '#888888',
       backgroundColor: '#222222', padding: { x: 12, y: 6 }
-    }).setOrigin(0.5).setInteractive();
+    }).setOrigin(0.5).setInteractive().setAlpha(0);
+    this.time.delayedCall(5 * 300 + 3500, () => {
+      this.tweens.add({ targets: replay, alpha: 1, duration: 800 });
+    });
     replay.on('pointerdown', () => {
       SaveState.reset();
       this.scene.start('Title');
