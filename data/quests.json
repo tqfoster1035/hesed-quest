@@ -6,119 +6,124 @@
   },
   "quests": [
     {
-      "id": "presence",
+      "id": "bedrock",
       "name": "The Practice Yard",
+      "pillar": "THE BEDROCK",
       "zone": "practice_yard",
       "npcName": "Young Villager",
-      "intro": "A young villager waits alone at the Practice Yard. He just needs someone to show up.",
+      "intro": "A Glitch of Neglect has made this villager almost invisible. He needs someone to just... be there.",
       "npcDialogue": [
-        "Hey... I've been waiting here all day.",
-        "Nobody came to practice with me.",
-        "Will you just... stay? That's all I need."
+        "I've been fading... nobody shows up anymore.",
+        "They all say they'll come, but nobody does.",
+        "Can you just... stay here with me? That's all I need."
       ],
       "mechanic": "timer",
       "mechanicConfig": {
         "duration": 10,
         "zoneRadius": 48
       },
-      "completionMessage": "You stayed. That's the first shard of being a good dad.",
-      "shardLesson": "PRESENCE: Bad dads are never around. They're checked out. Good dads show up. They make time. Being there is a choice, not a feeling.",
+      "completionMessage": "You showed up. You stayed. The Glitch of Neglect is broken.",
+      "shardLesson": "THE BEDROCK: What makes a man fail his people? Being someone they can't count on when it gets hard. Don't be a man of 'maybe.' Be the person whose 'yes' is a contract. When life gets chaotic, be the one who stays calm so others can find their footing.",
       "shardColor": "0xff6600"
     },
     {
       "id": "strength",
       "name": "The Safe Cave",
+      "pillar": "REGULATED STRENGTH",
       "zone": "safe_cave",
       "npcName": "Small Creature",
-      "intro": "A small creature is trapped near spreading fire. Clear the path gently - rushing makes it worse.",
+      "intro": "Volatile Fire reacts to fast movement. This creature needs a protector, not a destroyer.",
       "npcDialogue": [
-        "I'm scared... the fire is getting closer!",
-        "Please help me, but be careful!",
-        "If you move too fast, the fire spreads!"
+        "The fire... it grows when people rush in angry.",
+        "Everyone who tried to help me just made it worse.",
+        "Can you be calm? Can you move slowly and clear the way?"
       ],
       "mechanic": "escort",
       "mechanicConfig": {
         "blocks": 3,
         "sprintThreshold": 150
       },
-      "completionMessage": "You were strong AND gentle. That's real strength.",
-      "shardLesson": "REGULATED STRENGTH: Bad dads use their size, anger, or voice to scare people. Good dads make home safe. Their hands are gentle. Strength without control is just destruction.",
+      "completionMessage": "You used your strength to protect, not to destroy. The Volatile Fire is out.",
+      "shardLesson": "REGULATED STRENGTH: What makes a man dangerous to the people he loves? Having power but no control over his emotions. A great protector isn't just someone who can fight. It's someone who refuses to use his strength to intimidate. Master your breath so your family feels safe, never on edge.",
       "shardColor": "0x00aaff"
     },
     {
-      "id": "encouragement",
+      "id": "connector",
       "name": "Banner Hill",
+      "pillar": "THE CONNECTOR",
       "zone": "banner_hill",
-      "npcName": "Cursed Dummy",
-      "intro": "A training dummy is cursed by dark words. Find 3 Encouragement Words to break the curse.",
+      "npcName": "Isolated Brother",
+      "intro": "A Wall of Isolation blocks the path. You can't break it alone. Find your brother.",
       "npcDialogue": [
-        "Negative words are stuck to me...",
-        "\"You're worthless.\" \"You'll never be good enough.\"",
-        "Please find the Encouragement Words to free me!"
+        "I've been stuck behind this wall for a long time.",
+        "I tried to do everything alone. That's why I'm trapped.",
+        "Will you help me carry this weight? Together we can break through."
       ],
       "mechanic": "collect",
       "mechanicConfig": {
-        "items": ["You matter.", "I believe in you.", "I'm proud of you."],
+        "items": ["Trust", "Teamwork", "Brotherhood"],
         "collectRadius": 32
       },
-      "completionMessage": "Words have power. You chose to build up instead of tear down.",
-      "shardLesson": "ENCOURAGEMENT: Bad dads tear you down. They only point out mistakes. Good dads build you up. They cheer for you. The words you speak become the voice in your kid's head.",
+      "completionMessage": "You carried the heavy end of the log. The Wall of Isolation crumbles.",
+      "shardLesson": "THE CONNECTOR: What makes a man lonely and weak? Thinking he has to do everything alone. Lone wolves die. Be a teammate. Listen more than you speak. If you see a brother struggling, carry a piece of his load. To lead a family, you must first learn to serve the team.",
       "shardColor": "0x44ff44"
     },
     {
       "id": "truth",
       "name": "The Glitch Portal",
+      "pillar": "THE TRUTH-BEARER",
       "zone": "glitch_portal",
       "npcName": "Fog Guardian",
-      "intro": "A strange fog blocks your path. Walk carefully through the maze, then face the truth.",
+      "intro": "A Cloud of Deception obscures the path. Only truth can cut through lies.",
       "npcDialogue": [
-        "This fog is made of lies and shortcuts.",
-        "Rush through and it gets thicker.",
-        "At the end, you must choose honesty to clear it."
+        "This fog is made of small, convenient lies.",
+        "Every lie that seems harmless makes the fog thicker.",
+        "Only the truth can burn it away. Are you brave enough?"
       ],
       "mechanic": "maze_dialogue",
       "mechanicConfig": {
         "mazeWidth": 7,
         "mazeHeight": 5,
-        "question": "The Guardian asks: \"You broke something that belonged to someone you love. Nobody saw. What do you do?\"",
+        "question": "The Guardian speaks: \"You broke something that belonged to someone you love. Nobody saw it happen. What do you do?\"",
         "choices": [
-          { "text": "Hide it and hope nobody notices.", "correct": false, "response": "The fog grows thicker. Lies always make things worse." },
-          { "text": "Tell them what happened and offer to fix it.", "correct": true, "response": "The fog clears! Honesty takes courage, but it builds trust." },
-          { "text": "Blame it on someone else.", "correct": false, "response": "The fog grows thicker. Blame destroys trust." }
+          { "text": "Hide it and hope nobody notices.", "correct": false, "response": "The fog grows thicker. Small lies always grow into big ones." },
+          { "text": "Tell them the truth, even though it's hard.", "correct": true, "response": "The fog burns away! Truth is the shortest distance between you and the people you love." },
+          { "text": "Blame it on someone else.", "correct": false, "response": "The fog grows thicker. Blame is just fear wearing a mask." }
         ]
       },
-      "completionMessage": "You chose truth when it was hard. That takes real courage.",
-      "shardLesson": "TRUTH & PATIENCE: Bad dads lie and explode fast. They punish before they understand. Good dads are honest even when it's hard. They slow down. They choose self-control.",
+      "completionMessage": "You chose truth when it cost you something. The Cloud of Deception is gone.",
+      "shardLesson": "THE TRUTH-BEARER: What destroys trust faster than anything? Small, 'convenient' lies that hide who you really are. Don't hide your mistakes to look perfect. A great man is honest even when it costs him. When you're wrong, own it immediately. Truth is the shortest distance between you and the people you love.",
       "shardColor": "0xaa44ff"
     },
     {
-      "id": "listening",
+      "id": "student",
       "name": "The Listening Garden",
+      "pillar": "THE ETERNAL STUDENT",
       "zone": "listening_garden",
-      "npcName": "Garden Keeper",
-      "intro": "The Garden Keeper has a story to share. Listen carefully - you'll need to prove you heard.",
+      "npcName": "The Silent Monk",
+      "intro": "The Silent Monk holds the final shard. He only gives it to those who truly listen.",
       "npcDialogue": [
-        "My garden used to be full of life.",
-        "A storm came and broke three of my favorite trees.",
-        "Now I spend every morning trying to regrow them."
+        "The Fire Ninja was not born powerful. He trained every single day.",
+        "His greatest weapon was not fire. It was his willingness to learn.",
+        "He once said: 'The day I stop learning is the day I start losing.'"
       ],
       "mechanic": "quiz",
       "mechanicConfig": {
-        "question": "What happened to the Garden Keeper's trees?",
+        "question": "What did the Fire Ninja say was the day he would start losing?",
         "choices": [
-          { "text": "They were cut down by villagers.", "correct": false },
-          { "text": "A storm broke three of them.", "correct": true },
-          { "text": "They just stopped growing one day.", "correct": false }
+          { "text": "The day he lost his fire powers.", "correct": false },
+          { "text": "The day he stopped learning.", "correct": true },
+          { "text": "The day his enemies got stronger.", "correct": false }
         ],
-        "retryMessage": "That's not quite right. Listen again..."
+        "retryMessage": "You weren't really listening. Let me tell you again..."
       },
-      "completionMessage": "You listened. Really listened. That's rarer than you think.",
-      "shardLesson": "LISTENING: Bad dads don't listen. They make everything about themselves. Good dads are curious about you. They ask questions. They remember what matters to you.",
+      "completionMessage": "You listened. You proved you can learn. The Monk smiles.",
+      "shardLesson": "THE ETERNAL STUDENT: What makes a man obsolete? Thinking he already knows everything and refusing to grow. Don't be 'the man who knows.' Be the man who learns. Ask questions. Read. Observe. A man is never 'finished.' Growth is a lifelong patrol. You never clock out.",
       "shardColor": "0xffdd00"
     }
   ],
   "badge": {
     "title": "Good Dad Badge",
-    "message": "Son, you asked me if you'll be a good dad someday. Here's the cheat code: invert (flip) it. Ask, \"What would make me a terrible dad?\" Then do the opposite.\n\nDon't lie. Be honest even when it's difficult.\nDon't hurt. Be gentle.\nDon't tear people down. Encourage them.\nDon't explode fast. Be patient.\nDon't ignore people. Listen and care.\n\nIf you keep stacking those choices, you're giving yourself the best chance to be an amazing dad.\n\nAnd I already see those good choices in you.\n\nBe better than your dad!\n\nI love you Hesed!"
+    "message": "Son, you asked if you'll be a good dad.\nHere's the cheat code: Invert it.\nAsk, \"What would make me a terrible man?\"\n\n1. Don't be unreliable.\n   Be the bedrock people can stand on.\n\n2. Don't be volatile.\n   Use your strength to protect, never to intimidate.\n\n3. Don't be a lone wolf.\n   Be the teammate who carries the heavy end of the log.\n\n4. Don't be deceptive.\n   Speak the truth, even if your voice shakes.\n\n5. Don't stop growing.\n   Be a student of life every single day.\n\nIf you avoid those five traps, you won't just be a good dad - you'll be a leader people would follow into the fire.\n\nI already see that spark in you, Hesed.\nBe better than me.\nI love you."
   }
 }
