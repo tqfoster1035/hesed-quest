@@ -625,9 +625,9 @@ class HubScene extends Phaser.Scene {
 
       // Zone label
       this.add.text(zx, zy - TS * 1.2, questNames[i], {
-        fontSize: '11px', fontFamily: 'monospace', color: '#ffffff',
-        backgroundColor: '#000000aa', padding: { x: 5, y: 3 },
-        stroke: '#000000', strokeThickness: 1
+        fontSize: '14px', fontFamily: 'monospace', color: '#ffffff',
+        backgroundColor: '#000000aa', padding: { x: 6, y: 4 },
+        stroke: '#000000', strokeThickness: 2
       }).setOrigin(0.5).setDepth(10);
 
       // NPC at zone
@@ -793,11 +793,12 @@ class QuestScene extends Phaser.Scene {
     }).setScrollFactor(0).setDepth(50);
 
     // Quest name + pillar
-    this.add.text(this.cameras.main.centerX, 16, this.quest.pillar, {
-      fontSize: '10px', fontFamily: 'monospace', color: '#ffdd00'
+    this.add.text(this.cameras.main.centerX, 18, this.quest.pillar, {
+      fontSize: '16px', fontFamily: 'monospace', color: '#ffdd00',
+      stroke: '#000000', strokeThickness: 2
     }).setOrigin(0.5).setScrollFactor(0).setDepth(50);
-    this.add.text(this.cameras.main.centerX, 34, this.quest.name, {
-      fontSize: '16px', fontFamily: 'monospace', color: '#ff4444',
+    this.add.text(this.cameras.main.centerX, 42, this.quest.name, {
+      fontSize: '22px', fontFamily: 'monospace', color: '#ff4444',
       fontStyle: 'bold', stroke: '#000000', strokeThickness: 2
     }).setOrigin(0.5).setScrollFactor(0).setDepth(50);
 
@@ -1239,99 +1240,123 @@ class BadgeScene extends Phaser.Scene {
       });
     }
 
-    // Badge - five shards combine into star formation
-    const starCenterY = 75;
-    const starR = 45;
-    const starOrder = [0, 2, 4, 1, 3]; // connects every other point to draw a star
+    // Badge - five shards fly in and merge into one golden star
+    const starCenterY = 90;
+    const starR = 50;
 
-    // Compute star tip positions
-    const tips = [];
-    for (let i = 0; i < 5; i++) {
-      const angle = STAR_ANGLES[i] * Math.PI / 180;
-      tips.push({
-        x: cx + Math.cos(angle) * starR,
-        y: starCenterY + Math.sin(angle) * starR
+    // Draw golden star shape (filled) - hidden initially
+    const starGfx = this.add.graphics().setDepth(10).setAlpha(0);
+    const innerR = starR * 0.382; // inner pentagon ratio
+    const starPoints = [];
+    for (let i = 0; i < 10; i++) {
+      const r = i % 2 === 0 ? starR : innerR;
+      const angle = (i * 36 - 90) * Math.PI / 180;
+      starPoints.push({
+        x: cx + Math.cos(angle) * r,
+        y: starCenterY + Math.sin(angle) * r
       });
     }
+    // Filled golden star
+    starGfx.fillStyle(0xffdd00, 1);
+    starGfx.beginPath();
+    starGfx.moveTo(starPoints[0].x, starPoints[0].y);
+    for (let i = 1; i < 10; i++) {
+      starGfx.lineTo(starPoints[i].x, starPoints[i].y);
+    }
+    starGfx.closePath();
+    starGfx.fillPath();
+    // Lighter inner highlight
+    starGfx.fillStyle(0xffee66, 0.5);
+    const hlR = starR * 0.6;
+    const hlInner = innerR * 0.6;
+    starGfx.beginPath();
+    for (let i = 0; i < 10; i++) {
+      const r = i % 2 === 0 ? hlR : hlInner;
+      const angle = (i * 36 - 90) * Math.PI / 180;
+      const px = cx + Math.cos(angle) * r;
+      const py = starCenterY + Math.sin(angle) * r;
+      if (i === 0) starGfx.moveTo(px, py);
+      else starGfx.lineTo(px, py);
+    }
+    starGfx.closePath();
+    starGfx.fillPath();
 
-    // Star outline graphics (drawn after shards fly in)
-    const starGfx = this.add.graphics().setDepth(8).setAlpha(0);
-
-    // Shards start scattered off-screen, fly into star tips
+    // Shards start scattered off-screen, fly toward center
     const shards = [];
     for (let i = 0; i < 5; i++) {
       const quest = questData.quests[i];
       const startX = cx + (Math.random() - 0.5) * 600;
       const startY = -60 - Math.random() * 100;
-      const s = this.add.image(startX, startY, 'shard').setScale(SCALE * 1.0)
-        .setTint(parseInt(quest.shardColor)).setDepth(10).setAlpha(0.7);
+      const s = this.add.image(startX, startY, 'shard').setScale(SCALE * 1.2)
+        .setTint(parseInt(quest.shardColor)).setDepth(12).setAlpha(0.8);
       shards.push(s);
 
-      // Fly each shard to its star tip with staggered delay
+      // Fly each shard to center with staggered delay
       this.tweens.add({
         targets: s,
-        x: tips[i].x, y: tips[i].y,
-        alpha: 1, scale: SCALE * 1.0,
-        duration: 800, delay: i * 300,
-        ease: 'Back.easeOut',
-        onComplete: () => {
-          // Gentle hover after landing
-          this.tweens.add({
-            targets: s, y: tips[i].y - 4,
-            duration: 1200 + i * 150, yoyo: true, repeat: -1,
-            ease: 'Sine.easeInOut'
-          });
-        }
+        x: cx, y: starCenterY,
+        alpha: 1, scale: SCALE * 0.8,
+        duration: 900, delay: i * 350,
+        ease: 'Cubic.easeIn'
       });
     }
 
-    // After all shards land, draw the star connecting lines
-    this.time.delayedCall(5 * 300 + 900, () => {
-      // Draw star by connecting every other point
-      starGfx.lineStyle(2, 0xffdd00, 0.6);
-      starGfx.beginPath();
-      starGfx.moveTo(tips[starOrder[0]].x, tips[starOrder[0]].y);
-      for (let i = 1; i < 5; i++) {
-        starGfx.lineTo(tips[starOrder[i]].x, tips[starOrder[i]].y);
-      }
-      starGfx.closePath();
-      starGfx.strokePath();
+    // After all shards converge, flash and reveal the golden star
+    const mergeTime = 5 * 350 + 1000;
+    this.time.delayedCall(mergeTime, () => {
+      // Hide individual shards
+      shards.forEach(s => {
+        this.tweens.add({ targets: s, alpha: 0, scale: 0, duration: 300 });
+      });
 
-      // Fade in the star lines
-      this.tweens.add({ targets: starGfx, alpha: 1, duration: 600 });
+      // White flash
+      const flash = this.add.circle(cx, starCenterY, 80, 0xffffff, 0.9).setDepth(15);
+      this.tweens.add({ targets: flash, alpha: 0, scaleX: 2.5, scaleY: 2.5, duration: 600 });
 
-      // Center glow pulse
-      const glow = this.add.circle(cx, starCenterY, 55, 0xffdd00, 0).setDepth(7);
+      // Reveal the golden star
       this.tweens.add({
-        targets: glow, alpha: 0.15, duration: 600,
+        targets: starGfx, alpha: 1, duration: 400, delay: 200,
+        onComplete: () => {
+          // Gentle pulse on the star
+          this.tweens.add({
+            targets: starGfx, scaleX: 1.05, scaleY: 1.05,
+            duration: 1500, yoyo: true, repeat: -1, ease: 'Sine.easeInOut'
+          });
+        }
+      });
+
+      // Center glow behind star
+      const glow = this.add.circle(cx, starCenterY, 60, 0xffdd00, 0).setDepth(7);
+      this.tweens.add({
+        targets: glow, alpha: 0.2, duration: 500,
         onComplete: () => {
           this.tweens.add({
-            targets: glow, alpha: 0.03, scaleX: 1.6, scaleY: 1.6,
+            targets: glow, alpha: 0.05, scaleX: 1.8, scaleY: 1.8,
             duration: 2500, yoyo: true, repeat: -1
           });
         }
       });
     });
 
-    // Title (appears after star forms)
-    const titleText = this.add.text(cx, 165, questData.badge.title, {
+    // Title (appears after star merge)
+    const titleText = this.add.text(cx, 170, questData.badge.title, {
       fontSize: '22px', fontFamily: 'monospace', color: '#ffdd00',
       fontStyle: 'bold', stroke: '#000000', strokeThickness: 3
     }).setOrigin(0.5).setDepth(20).setAlpha(0);
 
-    this.time.delayedCall(5 * 300 + 1500, () => {
+    this.time.delayedCall(mergeTime + 800, () => {
       this.tweens.add({ targets: titleText, alpha: 1, duration: 800 });
     });
 
     // Scrollable message area (fades in after title)
-    const msgY = 195;
+    const msgY = 200;
     const msg = this.add.text(cx, msgY, questData.badge.message, {
       fontSize: '13px', fontFamily: 'monospace', color: '#ffffff',
       wordWrap: { width: this.cameras.main.width - 40 },
       lineSpacing: 7, align: 'center'
     }).setOrigin(0.5, 0).setAlpha(0);
 
-    this.time.delayedCall(5 * 300 + 2300, () => {
+    this.time.delayedCall(mergeTime + 1600, () => {
       this.tweens.add({ targets: msg, alpha: 1, duration: 1200 });
     });
 
@@ -1341,7 +1366,7 @@ class BadgeScene extends Phaser.Scene {
       fontSize: '14px', fontFamily: 'monospace', color: '#888888',
       backgroundColor: '#222222', padding: { x: 12, y: 6 }
     }).setOrigin(0.5).setInteractive().setAlpha(0);
-    this.time.delayedCall(5 * 300 + 3500, () => {
+    this.time.delayedCall(mergeTime + 2800, () => {
       this.tweens.add({ targets: replay, alpha: 1, duration: 800 });
     });
     replay.on('pointerdown', () => {

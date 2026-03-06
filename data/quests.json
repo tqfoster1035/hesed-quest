@@ -8,10 +8,10 @@
     {
       "id": "bedrock",
       "name": "The Practice Yard",
-      "pillar": "THE BEDROCK",
+      "pillar": "THE ANCHOR",
       "zone": "practice_yard",
       "npcName": "Young Villager",
-      "intro": "A Glitch of Neglect has made this villager almost invisible. He needs someone to just... be there.",
+      "intro": "A Glitch of Neglect has made this villager fade away. He just needs someone to show up.",
       "npcDialogue": [
         "I've been fading... nobody shows up anymore.",
         "They all say they'll come, but nobody does.",
@@ -23,7 +23,7 @@
         "zoneRadius": 48
       },
       "completionMessage": "You showed up. You stayed. The Glitch of Neglect is broken.",
-      "shardLesson": "THE BEDROCK: What makes a man fail his people? Being someone they can't count on when it gets hard. Don't be a man of 'maybe.' Be the person whose 'yes' is a contract. When life gets chaotic, be the one who stays calm so others can find their footing.",
+      "shardLesson": "THE ANCHOR: What makes a man fail his people? Being someone they can't count on when things get hard. Don't be a 'maybe' guy. When you say 'yes,' mean it. When life gets crazy, be the one who stays calm so others feel safe.",
       "shardColor": "0xff6600"
     },
     {
@@ -32,7 +32,7 @@
       "pillar": "REGULATED STRENGTH",
       "zone": "safe_cave",
       "npcName": "Small Creature",
-      "intro": "Volatile Fire reacts to fast movement. This creature needs a protector, not a destroyer.",
+      "intro": "Wild Fire grows when you rush in. This creature needs a protector, not a destroyer.",
       "npcDialogue": [
         "The fire... it grows when people rush in angry.",
         "Everyone who tried to help me just made it worse.",
@@ -44,7 +44,7 @@
         "sprintThreshold": 150
       },
       "completionMessage": "You used your strength to protect, not to destroy. The Volatile Fire is out.",
-      "shardLesson": "REGULATED STRENGTH: What makes a man dangerous to the people he loves? Having power but no control over his emotions. A great protector isn't just someone who can fight. It's someone who refuses to use his strength to intimidate. Master your breath so your family feels safe, never on edge.",
+      "shardLesson": "REGULATED STRENGTH: What makes a man dangerous to the people he loves? Having power but no control over his feelings. A real protector doesn't just know how to fight. He refuses to use his strength to scare people. Control your temper so your family feels safe, not afraid.",
       "shardColor": "0x00aaff"
     },
     {
@@ -65,7 +65,7 @@
         "collectRadius": 32
       },
       "completionMessage": "You carried the heavy end of the log. The Wall of Isolation crumbles.",
-      "shardLesson": "THE CONNECTOR: What makes a man lonely and weak? Thinking he has to do everything alone. Lone wolves die. Be a teammate. Listen more than you speak. If you see a brother struggling, carry a piece of his load. To lead a family, you must first learn to serve the team.",
+      "shardLesson": "THE CONNECTOR: What makes a man lonely and weak? Thinking he has to do everything by himself. Lone wolves don't last. Be a teammate. Listen more than you talk. If you see someone struggling, help carry their weight. To lead a family, you have to learn to serve the team first.",
       "shardColor": "0x44ff44"
     },
     {
@@ -92,7 +92,7 @@
         ]
       },
       "completionMessage": "You chose truth when it cost you something. The Cloud of Deception is gone.",
-      "shardLesson": "THE TRUTH-BEARER: What destroys trust faster than anything? Small, 'convenient' lies that hide who you really are. Don't hide your mistakes to look perfect. A great man is honest even when it costs him. When you're wrong, own it immediately. Truth is the shortest distance between you and the people you love.",
+      "shardLesson": "THE TRUTH-BEARER: What destroys trust faster than anything? Small lies that hide who you really are. Don't cover up your mistakes to look perfect. A great man is honest even when it's hard. When you're wrong, say so right away. Truth is the fastest way to stay close to the people you love.",
       "shardColor": "0xaa44ff"
     },
     {
@@ -118,12 +118,12 @@
         "retryMessage": "You weren't really listening. Let me tell you again..."
       },
       "completionMessage": "You listened. You proved you can learn. The Monk smiles.",
-      "shardLesson": "THE ETERNAL STUDENT: What makes a man obsolete? Thinking he already knows everything and refusing to grow. Don't be 'the man who knows.' Be the man who learns. Ask questions. Read. Observe. A man is never 'finished.' Growth is a lifelong patrol. You never clock out.",
+      "shardLesson": "THE ETERNAL STUDENT: What makes a man fall behind? Thinking he already knows everything. Don't be the guy who stops learning. Ask questions. Read. Watch. A real man is never 'done.' Keep growing every single day. You never stop.",
       "shardColor": "0xffdd00"
     }
   ],
   "badge": {
     "title": "Good Dad Badge",
-    "message": "Son, you asked if you'll be a good dad.\nHere's the cheat code: Invert it.\nAsk, \"What would make me a terrible man?\"\n\n1. Don't be unreliable.\n   Be the bedrock people can stand on.\n\n2. Don't be volatile.\n   Use your strength to protect, never to intimidate.\n\n3. Don't be a lone wolf.\n   Be the teammate who carries the heavy end of the log.\n\n4. Don't be deceptive.\n   Speak the truth, even if your voice shakes.\n\n5. Don't stop growing.\n   Be a student of life every single day.\n\nIf you avoid those five traps, you won't just be a good dad - you'll be a leader people would follow into the fire.\n\nI already see that spark in you, Hesed.\nBe better than me.\nI love you."
+    "message": "Son, you asked if you'll be a good dad.\nHere's the cheat code: Flip it.\nAsk, \"What would make me a terrible man?\"\n\n1. Don't be the guy who doesn't show up.\n   Be the anchor people can hold onto.\n\n2. Don't lose control of your temper.\n   Use your strength to protect, never to scare.\n\n3. Don't try to do everything alone.\n   Be the teammate who carries the heavy end.\n\n4. Don't hide behind lies.\n   Tell the truth, even when it's hard.\n\n5. Don't stop learning.\n   Stay curious every single day.\n\nIf you dodge those five traps, you won't just be a good dad - you'll be a leader people would follow into the fire.\n\nI already see that spark in you, Hesed.\nBe better than me.\nI love you."
   }
 }
