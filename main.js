@@ -1259,13 +1259,13 @@ class BadgeScene extends Phaser.Scene {
     this.tweens.add({ targets: glow, alpha: 0.03, scaleX: 1.6, scaleY: 1.6, duration: 2500, yoyo: true, repeat: -1 });
 
     // Title
-    this.add.text(cx, 140, questData.badge.title, {
+    this.add.text(cx, 165, questData.badge.title, {
       fontSize: '22px', fontFamily: 'monospace', color: '#ffdd00',
       fontStyle: 'bold', stroke: '#000000', strokeThickness: 3
-    }).setOrigin(0.5);
+    }).setOrigin(0.5).setDepth(20);
 
     // Scrollable message area
-    const msgY = 170;
+    const msgY = 195;
     const msg = this.add.text(cx, msgY, questData.badge.message, {
       fontSize: '13px', fontFamily: 'monospace', color: '#ffffff',
       wordWrap: { width: this.cameras.main.width - 40 },
