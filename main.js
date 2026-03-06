@@ -591,8 +591,8 @@ class HubScene extends Phaser.Scene {
     // Shrine center decoration
     this.add.image(cx, cy, 'shrine_tile').setScale(SCALE).setDepth(3);
 
-    // Place pedestals along star legs, spaced out from shrine center
-    const pedRadius = 6.5;
+    // Place pedestals along star legs, visible but not clipping edges
+    const pedRadius = 4.5;
     const pedestalPositions = [];
     for (let i = 0; i < 5; i++) {
       const pp = starPoint(i, cx / TS, cy / TS, pedRadius);
