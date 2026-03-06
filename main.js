@@ -1246,7 +1246,7 @@ class BadgeScene extends Phaser.Scene {
       const sx = cx + Math.cos(angle) * r;
       const sy = 60 + Math.sin(angle) * r;
       const quest = questData.quests[i];
-      const s = this.add.image(sx, sy, 'shard').setScale(SCALE * 1.5)
+      const s = this.add.image(sx, sy, 'shard').setScale(SCALE * 1.2)
         .setTint(parseInt(quest.shardColor)).setDepth(10);
       this.tweens.add({
         targets: s, y: sy - 5, duration: 1000 + i * 200,
