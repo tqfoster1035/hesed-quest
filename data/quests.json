@@ -1,0 +1,124 @@
+{
+  "title": {
+    "heading": "Hesed's Inversion Quest",
+    "subtitle": "You asked: \"Do you think I'll be a good dad someday?\"\nI made you a quest to answer it.",
+    "startButton": "Tap to Start"
+  },
+  "quests": [
+    {
+      "id": "presence",
+      "name": "The Practice Yard",
+      "zone": "practice_yard",
+      "npcName": "Young Villager",
+      "intro": "A young villager waits alone at the Practice Yard. He just needs someone to show up.",
+      "npcDialogue": [
+        "Hey... I've been waiting here all day.",
+        "Nobody came to practice with me.",
+        "Will you just... stay? That's all I need."
+      ],
+      "mechanic": "timer",
+      "mechanicConfig": {
+        "duration": 10,
+        "zoneRadius": 48
+      },
+      "completionMessage": "You stayed. That's the first shard of being a good dad.",
+      "shardLesson": "PRESENCE: Bad dads are never around. They're checked out. Good dads show up. They make time. Being there is a choice, not a feeling.",
+      "shardColor": "0xff6600"
+    },
+    {
+      "id": "strength",
+      "name": "The Safe Cave",
+      "zone": "safe_cave",
+      "npcName": "Small Creature",
+      "intro": "A small creature is trapped near spreading fire. Clear the path gently - rushing makes it worse.",
+      "npcDialogue": [
+        "I'm scared... the fire is getting closer!",
+        "Please help me, but be careful!",
+        "If you move too fast, the fire spreads!"
+      ],
+      "mechanic": "escort",
+      "mechanicConfig": {
+        "blocks": 3,
+        "sprintThreshold": 150
+      },
+      "completionMessage": "You were strong AND gentle. That's real strength.",
+      "shardLesson": "REGULATED STRENGTH: Bad dads use their size, anger, or voice to scare people. Good dads make home safe. Their hands are gentle. Strength without control is just destruction.",
+      "shardColor": "0x00aaff"
+    },
+    {
+      "id": "encouragement",
+      "name": "Banner Hill",
+      "zone": "banner_hill",
+      "npcName": "Cursed Dummy",
+      "intro": "A training dummy is cursed by dark words. Find 3 Encouragement Words to break the curse.",
+      "npcDialogue": [
+        "Negative words are stuck to me...",
+        "\"You're worthless.\" \"You'll never be good enough.\"",
+        "Please find the Encouragement Words to free me!"
+      ],
+      "mechanic": "collect",
+      "mechanicConfig": {
+        "items": ["You matter.", "I believe in you.", "I'm proud of you."],
+        "collectRadius": 32
+      },
+      "completionMessage": "Words have power. You chose to build up instead of tear down.",
+      "shardLesson": "ENCOURAGEMENT: Bad dads tear you down. They only point out mistakes. Good dads build you up. They cheer for you. The words you speak become the voice in your kid's head.",
+      "shardColor": "0x44ff44"
+    },
+    {
+      "id": "truth",
+      "name": "The Glitch Portal",
+      "zone": "glitch_portal",
+      "npcName": "Fog Guardian",
+      "intro": "A strange fog blocks your path. Walk carefully through the maze, then face the truth.",
+      "npcDialogue": [
+        "This fog is made of lies and shortcuts.",
+        "Rush through and it gets thicker.",
+        "At the end, you must choose honesty to clear it."
+      ],
+      "mechanic": "maze_dialogue",
+      "mechanicConfig": {
+        "mazeWidth": 7,
+        "mazeHeight": 5,
+        "question": "The Guardian asks: \"You broke something that belonged to someone you love. Nobody saw. What do you do?\"",
+        "choices": [
+          { "text": "Hide it and hope nobody notices.", "correct": false, "response": "The fog grows thicker. Lies always make things worse." },
+          { "text": "Tell them what happened and offer to fix it.", "correct": true, "response": "The fog clears! Honesty takes courage, but it builds trust." },
+          { "text": "Blame it on someone else.", "correct": false, "response": "The fog grows thicker. Blame destroys trust." }
+        ]
+      },
+      "completionMessage": "You chose truth when it was hard. That takes real courage.",
+      "shardLesson": "TRUTH & PATIENCE: Bad dads lie and explode fast. They punish before they understand. Good dads are honest even when it's hard. They slow down. They choose self-control.",
+      "shardColor": "0xaa44ff"
+    },
+    {
+      "id": "listening",
+      "name": "The Listening Garden",
+      "zone": "listening_garden",
+      "npcName": "Garden Keeper",
+      "intro": "The Garden Keeper has a story to share. Listen carefully - you'll need to prove you heard.",
+      "npcDialogue": [
+        "My garden used to be full of life.",
+        "A storm came and broke three of my favorite trees.",
+        "Now I spend every morning trying to regrow them."
+      ],
+      "mechanic": "quiz",
+      "mechanicConfig": {
+        "question": "What happened to the Garden Keeper's trees?",
+        "choices": [
+          { "text": "They were cut down by villagers.", "correct": false },
+          { "text": "A storm broke three of them.", "correct": true },
+          { "text": "They just stopped growing one day.", "correct": false }
+        ],
+        "retryMessage": "That's not quite right. Listen again..."
+      },
+      "completionMessage": "You listened. Really listened. That's rarer than you think.",
+      "shardLesson": "LISTENING: Bad dads don't listen. They make everything about themselves. Good dads are curious about you. They ask questions. They remember what matters to you.",
+      "shardColor": "0xffdd00"
+    }
+  ],
+  "badge": {
+    "title": "Good Dad Badge",
+    "message": "Son, you asked me if you'll be a good dad someday. Here's the cheat code: invert (flip) it. Ask, \"What would make me a terrible dad?\" Then do the opposite.\n\nDon't lie. Be honest even when it's difficult.\nDon't hurt. Be gentle.\nDon't tear people down. Encourage them.\nDon't explode fast. Be patient.\nDon't ignore people. Listen and care.\n\nIf you keep stacking those choices, you're giving yourself the best chance to be an amazing dad.\n\nAnd I already see those good choices in you.\n\nBe better than your dad!\n\nI love you Hesed!"
+  }
+}
