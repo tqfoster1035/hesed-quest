@@ -719,11 +719,11 @@ class HubScene extends Phaser.Scene {
 
     if (SaveState.shardCount() === 0) {
       this.dialogue.show('Dad', [
-        'Welcome, Fire Ninja.',
-        'Five Glitches of Misery corrupt the world around you.',
-        'Each one represents a way a man can fail his people.',
-        'Clear each glitch to earn an Inversion Shard.',
-        'Follow the star paths to begin.'
+        'Hey, Fire Ninja.',
+        'There are five traps out there. Five ways a man can let down the people he loves.',
+        'Your job is to beat each one and earn an Inversion Shard.',
+        'Inversion means you flip the question. Instead of "How do I win?" ask "What would make me lose?" Then don\'t do that.',
+        'Follow the star paths. I believe in you.'
       ], null);
     }
 
@@ -885,7 +885,7 @@ class QuestScene extends Phaser.Scene {
     // Duty circle - bigger and more visible
     this.add.circle(cx, cy, TS * 2.5, 0xffdd00, 0.12).setDepth(1);
     this.add.circle(cx, cy, TS * 2.5).setStrokeStyle(3, 0xffdd00, 0.5).setDepth(1);
-    this.add.text(cx, cy + TS * 2.5 + 10, 'DUTY CIRCLE', {
+    this.add.text(cx, cy + TS * 2.5 + 10, 'STAY HERE', {
       fontSize: '10px', fontFamily: 'monospace', color: '#ffdd00'
     }).setOrigin(0.5).setDepth(2);
 
@@ -896,7 +896,7 @@ class QuestScene extends Phaser.Scene {
     this.add.rectangle(cx, barY, 160, 18).setStrokeStyle(1, 0xffdd00).setScrollFactor(0).setDepth(50);
     this.presenceBar = this.add.rectangle(barX + 1, barY, 0, 16, 0xffdd00)
       .setOrigin(0, 0.5).setScrollFactor(0).setDepth(51);
-    this.add.text(cx, barY - 16, 'PRESENCE METER', {
+    this.add.text(cx, barY - 16, 'SHOWING UP', {
       fontSize: '10px', fontFamily: 'monospace', color: '#ffdd00'
     }).setOrigin(0.5).setScrollFactor(0).setDepth(51);
 
@@ -957,7 +957,7 @@ class QuestScene extends Phaser.Scene {
       if (nearest && minDist < TS * 2.5) this.tryBlockClear(nearest);
     });
 
-    this.add.text(cx, 70, 'Clear blocks while standing still.\nMoving too fast spreads the fire!', {
+    this.add.text(cx, 70, 'Slow down. Think. Find a way through.\nRushing makes it worse!', {
       fontSize: '11px', fontFamily: 'monospace', color: '#ff8844',
       align: 'center', backgroundColor: '#000000aa', padding: { x: 6, y: 4 }
     }).setOrigin(0.5).setScrollFactor(0).setDepth(50);
@@ -1081,7 +1081,7 @@ class QuestScene extends Phaser.Scene {
       }
     });
 
-    this.add.text(cx, 70, 'Walk through the Cloud of Deception\nto face the Guardian', {
+    this.add.text(cx, 70, 'Walk through the lies.\nFace the truth on the other side.', {
       fontSize: '11px', fontFamily: 'monospace', color: '#aa88ff',
       align: 'center', backgroundColor: '#000000aa', padding: { x: 6, y: 4 }
     }).setOrigin(0.5).setScrollFactor(0).setDepth(50);
