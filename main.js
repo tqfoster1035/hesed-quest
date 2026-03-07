@@ -358,8 +358,10 @@ class DialogueBox {
     const cam = scene.cameras.main;
     const bw = cam.width - 20;
     const bh = 90;
+    this.bh = bh;
     const bx = cam.width / 2;
     const by = cam.height - 55;
+    this.by = by;
 
     this.bg = scene.add.rectangle(bx, by, bw, bh, 0x000000, 0.88)
       .setScrollFactor(0).setDepth(100).setVisible(false);
@@ -393,6 +395,15 @@ class DialogueBox {
 
   showLine() {
     this.text.setText(this.lines[this.lineIndex]);
+    // Auto-resize box if text overflows (e.g. shard lessons)
+    const neededH = this.text.height + 40;
+    const h = Math.max(this.bh, neededH);
+    const by = this.scene.cameras.main.height - 10 - h / 2;
+    this.bg.setSize(this.bg.width, h).setPosition(this.bg.x, by);
+    this.border.setSize(this.border.width, h).setPosition(this.border.x, by);
+    this.nameText.setPosition(this.nameText.x, by - h / 2 + 6);
+    this.text.setPosition(this.text.x, by - h / 2 + 24);
+    this.tapHint.setPosition(this.tapHint.x, by + h / 2 - 18);
   }
 
   advance() {
@@ -741,8 +752,10 @@ class HubScene extends Phaser.Scene {
     let vx = 0, vy = 0;
     if (this.joyStick && this.joyStick.force > 0) {
       const angle = this.joyStick.angle * (Math.PI / 180);
-      vx = Math.cos(angle) * PLAYER_SPEED;
-      vy = Math.sin(angle) * PLAYER_SPEED;
+      const forcePct = Math.min(this.joyStick.force / this.joyStick.radius, 1);
+      const speed = (PLAYER_SPEED + 60) * forcePct;
+      vx = Math.cos(angle) * speed;
+      vy = Math.sin(angle) * speed;
     }
     if (this.cursors.left.isDown) vx = -PLAYER_SPEED;
     if (this.cursors.right.isDown) vx = PLAYER_SPEED;
@@ -892,6 +905,8 @@ class QuestScene extends Phaser.Scene {
     this.presenceZoneCenter = { x: cx, y: cy };
     this.presenceZoneRadius = TS * 2.5;
     this.presenceActive = true;
+    // Move player outside the duty circle so they must walk in
+    this.player.setPosition(cx, cy + TS * 3);
   }
 
   // ----- ESCORT (Safe Cave) -----
@@ -991,9 +1006,9 @@ class QuestScene extends Phaser.Scene {
     }
 
     const positions = [
-      { x: cx - 140, y: cy + 100 },
-      { x: cx + 150, y: cy - 10 },
-      { x: cx - 60, y: cy + 160 }
+      { x: cx - 200, y: cy + 150 },
+      { x: cx + 200, y: cy + 130 },
+      { x: cx - 10, y: cy + 220 }
     ];
 
     positions.forEach((p, i) => {
@@ -1167,8 +1182,10 @@ class QuestScene extends Phaser.Scene {
     let vx = 0, vy = 0;
     if (this.joyStick && this.joyStick.force > 0) {
       const angle = this.joyStick.angle * (Math.PI / 180);
-      vx = Math.cos(angle) * PLAYER_SPEED;
-      vy = Math.sin(angle) * PLAYER_SPEED;
+      const forcePct = Math.min(this.joyStick.force / this.joyStick.radius, 1);
+      const speed = (PLAYER_SPEED + 60) * forcePct;
+      vx = Math.cos(angle) * speed;
+      vy = Math.sin(angle) * speed;
     }
     if (this.cursors.left.isDown) vx = -PLAYER_SPEED;
     if (this.cursors.right.isDown) vx = PLAYER_SPEED;
