@@ -8,14 +8,14 @@
     {
       "id": "bedrock",
       "name": "The Practice Yard",
-      "pillar": "THE ANCHOR",
+      "pillar": "BE THERE",
       "zone": "practice_yard",
       "npcName": "Young Villager",
       "intro": "A Glitch of Neglect has made this villager fade away. He just needs someone to show up.",
       "npcDialogue": [
-        "I've been fading... nobody shows up anymore.",
-        "They all say they'll come, but nobody does.",
-        "Can you just... stay here with me? That's all I need."
+        "I've been fading... nobody comes anymore.",
+        "They all say they will. But they don't.",
+        "Can you just... stay here with me? That's it."
       ],
       "mechanic": "timer",
       "mechanicConfig": {
@@ -23,107 +23,107 @@
         "zoneRadius": 48
       },
       "completionMessage": "You showed up. You stayed. The Glitch of Neglect is broken.",
-      "shardLesson": "THE ANCHOR: What makes a man fail his people? Being someone they can't count on when things get hard. Don't be a 'maybe' guy. When you say 'yes,' mean it. When life gets crazy, be the one who stays calm so others feel safe.",
+      "shardLesson": "BE THERE: Sometimes the biggest gift you can give someone is just being in the room. Not fixing anything. Not saying the right thing. Just being there. Don't be the guy people can't count on. If you say you'll show up, show up. Every single time.",
       "shardColor": "0xff6600"
     },
     {
       "id": "strength",
       "name": "The Safe Cave",
-      "pillar": "REGULATED STRENGTH",
+      "pillar": "FIND A WAY",
       "zone": "safe_cave",
       "npcName": "Small Creature",
-      "intro": "Wild Fire grows when you rush in. This creature needs a protector, not a destroyer.",
+      "intro": "Wild Fire grows when you rush in. This creature needs someone who thinks before they move.",
       "npcDialogue": [
-        "The fire... it grows when people rush in angry.",
-        "Everyone who tried to help me just made it worse.",
-        "Can you be calm? Can you move slowly and clear the way?"
+        "The fire... it grows when people rush in without thinking.",
+        "Everyone who tried to help just made it worse.",
+        "Can you slow down? Think? Find a safe path through?"
       ],
       "mechanic": "escort",
       "mechanicConfig": {
         "blocks": 3,
         "sprintThreshold": 150
       },
-      "completionMessage": "You used your strength to protect, not to destroy. The Volatile Fire is out.",
-      "shardLesson": "REGULATED STRENGTH: What makes a man dangerous to the people he loves? Having power but no control over his feelings. A real protector doesn't just know how to fight. He refuses to use his strength to scare people. Control your temper so your family feels safe, not afraid.",
+      "completionMessage": "You didn't panic. You found a way through. The Volatile Fire is out.",
+      "shardLesson": "FIND A WAY: The best skill you will ever learn is this: believe you can do it, then figure out how. Don't wait for someone to hand you the answer. Use your brain. Use your friends. Use what you have. When a door is locked, look for a window. There is always a way if you don't give up.",
       "shardColor": "0x00aaff"
     },
     {
       "id": "connector",
       "name": "Banner Hill",
-      "pillar": "THE CONNECTOR",
+      "pillar": "RUN WITH A PACK",
       "zone": "banner_hill",
       "npcName": "Isolated Brother",
       "intro": "A Wall of Isolation blocks the path. You can't break it alone. Find your brother.",
       "npcDialogue": [
-        "I've been stuck behind this wall for a long time.",
-        "I tried to do everything alone. That's why I'm trapped.",
-        "Will you help me carry this weight? Together we can break through."
+        "I've been stuck here a long time.",
+        "I thought I could do it all by myself. I was wrong.",
+        "Will you help me? Together we can break through."
       ],
       "mechanic": "collect",
       "mechanicConfig": {
         "items": ["Trust", "Teamwork", "Brotherhood"],
         "collectRadius": 32
       },
-      "completionMessage": "You carried the heavy end of the log. The Wall of Isolation crumbles.",
-      "shardLesson": "THE CONNECTOR: What makes a man lonely and weak? Thinking he has to do everything by himself. Lone wolves don't last. Be a teammate. Listen more than you talk. If you see someone struggling, help carry their weight. To lead a family, you have to learn to serve the team first.",
+      "completionMessage": "You carried the heavy end. The Wall of Isolation crumbles.",
+      "shardLesson": "RUN WITH A PACK: A lone wolf might look cool. But he doesn't last. Life is too hard to do alone. You need people. And people need you. Be the teammate who shows up early and stays late. When you see someone who is struggling, help them carry it. A pack is always stronger than one.",
       "shardColor": "0x44ff44"
     },
     {
       "id": "truth",
       "name": "The Glitch Portal",
-      "pillar": "THE TRUTH-BEARER",
+      "pillar": "KILL THE LIE",
       "zone": "glitch_portal",
       "npcName": "Fog Guardian",
-      "intro": "A Cloud of Deception obscures the path. Only truth can cut through lies.",
+      "intro": "A Cloud of Deception fills the air. Only truth can burn it away.",
       "npcDialogue": [
-        "This fog is made of small, convenient lies.",
-        "Every lie that seems harmless makes the fog thicker.",
-        "Only the truth can burn it away. Are you brave enough?"
+        "This fog? It's made of lies. Small ones at first.",
+        "Each little lie makes it thicker. Harder to see through.",
+        "One lie can destroy years of trust in a second. Are you brave enough to be honest?"
       ],
       "mechanic": "maze_dialogue",
       "mechanicConfig": {
         "mazeWidth": 7,
         "mazeHeight": 5,
-        "question": "The Guardian speaks: \"You broke something that belonged to someone you love. Nobody saw it happen. What do you do?\"",
+        "question": "The Guardian speaks: \"You broke something that belonged to someone you love. Nobody saw it. What do you do?\"",
         "choices": [
-          { "text": "Hide it and hope nobody notices.", "correct": false, "response": "The fog grows thicker. Small lies always grow into big ones." },
-          { "text": "Tell them the truth, even though it's hard.", "correct": true, "response": "The fog burns away! Truth is the shortest distance between you and the people you love." },
-          { "text": "Blame it on someone else.", "correct": false, "response": "The fog grows thicker. Blame is just fear wearing a mask." }
+          { "text": "Hide it and hope nobody finds out.", "correct": false, "response": "The fog grows thicker. Small lies always grow into big ones." },
+          { "text": "Tell them what happened, even though it's scary.", "correct": true, "response": "The fog burns away! The truth keeps you close to the people you love." },
+          { "text": "Say someone else did it.", "correct": false, "response": "The fog grows thicker. Blaming others is just fear with a mask on." }
         ]
       },
-      "completionMessage": "You chose truth when it cost you something. The Cloud of Deception is gone.",
-      "shardLesson": "THE TRUTH-BEARER: What destroys trust faster than anything? Small lies that hide who you really are. Don't cover up your mistakes to look perfect. A great man is honest even when it's hard. When you're wrong, say so right away. Truth is the fastest way to stay close to the people you love.",
+      "completionMessage": "You told the truth when it was hard. The Cloud of Deception is gone.",
+      "shardLesson": "KILL THE LIE: Lies are poison. One small lie can destroy years of trust in a single second. It doesn't matter how small the lie seems. It doesn't matter if nobody saw. You will know. And it will eat at you. When you mess up, say so. Fast. Truth is the only way to keep the people you love close.",
       "shardColor": "0xaa44ff"
     },
     {
       "id": "student",
       "name": "The Listening Garden",
-      "pillar": "THE ETERNAL STUDENT",
+      "pillar": "PROVE YOU LEARNED",
       "zone": "listening_garden",
       "npcName": "The Silent Monk",
-      "intro": "The Silent Monk holds the final shard. He only gives it to those who truly listen.",
+      "intro": "The Silent Monk holds the final shard. He only gives it to those who can prove they listened.",
       "npcDialogue": [
         "The Fire Ninja was not born powerful. He trained every single day.",
-        "His greatest weapon was not fire. It was his willingness to learn.",
-        "He once said: 'The day I stop learning is the day I start losing.'"
+        "His real weapon was not fire. It was that he never stopped learning.",
+        "But here is the secret: learning only counts if you can show it. Words are easy. Skills are proof."
       ],
       "mechanic": "quiz",
       "mechanicConfig": {
-        "question": "What did the Fire Ninja say was the day he would start losing?",
+        "question": "What did the Monk say is the proof that you actually learned something?",
         "choices": [
-          { "text": "The day he lost his fire powers.", "correct": false },
-          { "text": "The day he stopped learning.", "correct": true },
-          { "text": "The day his enemies got stronger.", "correct": false }
+          { "text": "Saying you understand.", "correct": false },
+          { "text": "Having skills that show it.", "correct": true },
+          { "text": "Reading a lot of books.", "correct": false }
         ],
-        "retryMessage": "You weren't really listening. Let me tell you again..."
+        "retryMessage": "You heard the words but missed the point. Listen again..."
       },
-      "completionMessage": "You listened. You proved you can learn. The Monk smiles.",
-      "shardLesson": "THE ETERNAL STUDENT: What makes a man fall behind? Thinking he already knows everything. Don't be the guy who stops learning. Ask questions. Read. Watch. A real man is never 'done.' Keep growing every single day. You never stop.",
+      "completionMessage": "You listened. You proved it. The Monk smiles.",
+      "shardLesson": "PROVE YOU LEARNED: Anyone can say they know stuff. That's easy. The real test is: can you DO it? Learning only matters when you build a skill from it. Don't just read about it. Don't just watch a video. Try it. Fail at it. Get better at it. That's how you prove you actually learned.",
       "shardColor": "0xffdd00"
     }
   ],
   "badge": {
     "title": "Good Dad Badge",
-    "message": "Son, you asked if you'll be a good dad.\nHere's the cheat code: Flip it.\nAsk, \"What would make me a terrible man?\"\n\n1. Don't be the guy who doesn't show up.\n   Be the anchor people can hold onto.\n\n2. Don't lose control of your temper.\n   Use your strength to protect, never to scare.\n\n3. Don't try to do everything alone.\n   Be the teammate who carries the heavy end.\n\n4. Don't hide behind lies.\n   Tell the truth, even when it's hard.\n\n5. Don't stop learning.\n   Stay curious every single day.\n\nIf you dodge those five traps, you won't just be a good dad - you'll be a leader people would follow into the fire.\n\nI already see that spark in you, Hesed.\nBe better than me.\nI love you."
+    "message": "Son, you asked if you'll be a good dad.\nHere's the cheat code: Flip it.\nAsk \"What would make me a terrible man?\"\nThen don't be that guy.\n\n1. BE THERE.\n   Don't be the guy who doesn't show up.\n   Sometimes just being in the room is enough.\n\n2. FIND A WAY.\n   Don't wait for someone to save you.\n   Believe you can, then figure out how.\n\n3. RUN WITH A PACK.\n   Don't try to do it all alone.\n   A lone wolf doesn't last. Your people need you.\n\n4. KILL THE LIE.\n   Don't hide behind lies. Ever.\n   One lie can destroy years of trust in a second.\n\n5. PROVE YOU LEARNED.\n   Don't just say you know stuff.\n   Show it with your skills. That's the real test.\n\nDodge those five traps and you won't just be a good dad. You'll be the kind of man people follow into the fire.\n\nI already see that spark in you, Hesed.\nBe better than me.\nI love you, son."
   }
 }
