@@ -909,80 +909,98 @@ class QuestScene extends Phaser.Scene {
     this.player.setPosition(cx, cy + TS * 3);
   }
 
-  // ----- ESCORT (Safe Cave) -----
+  // ----- FIND A WAY (Safe Cave) -----
   startEscortMechanic() {
     const cx = this.cameras.main.centerX;
     const cy = this.cameras.main.centerY;
+    const cam = this.cameras.main;
 
-    this.creature = this.add.image(cx - 120, cy - 70, 'npc_green').setScale(SCALE * 0.8).setDepth(10);
+    // Creature trapped at top center behind fire walls
+    this.creature = this.add.image(cx, cy - 100, 'npc_green').setScale(SCALE * 0.8).setDepth(10);
+    this.add.text(cx, cy - 145, 'Trapped!', {
+      fontSize: '11px', fontFamily: 'monospace', color: '#ff6644',
+      stroke: '#000000', strokeThickness: 2
+    }).setOrigin(0.5).setDepth(10);
 
-    this.blocksRemaining = 3;
-    this.blocks = [];
-    const blockPositions = [
-      { x: cx - 60, y: cy - 90 },
-      { x: cx + 80, y: cy - 20 },
-      { x: cx + 10, y: cy + 60 }
+    // Fire walls blocking the creature (3 visual barriers)
+    this.fireWalls = [];
+    const wallOffsets = [{ x: -50, y: -70 }, { x: 0, y: -60 }, { x: 50, y: -70 }];
+    wallOffsets.forEach(off => {
+      const wall = [];
+      for (let f = 0; f < 6; f++) {
+        const flame = this.add.circle(
+          cx + off.x + (Math.random() - 0.5) * 30,
+          cy + off.y + (Math.random() - 0.5) * 20,
+          6 + Math.random() * 6, 0xff4400, 0.5 + Math.random() * 0.3
+        ).setDepth(9);
+        this.tweens.add({
+          targets: flame, alpha: 0.2, y: flame.y - 10,
+          duration: 400 + Math.random() * 400, yoyo: true, repeat: -1
+        });
+        wall.push(flame);
+      }
+      this.fireWalls.push(wall);
+    });
+
+    // 3 switches scattered around the cave
+    this.switchesFound = 0;
+    const switchPositions = [
+      { x: cx - cam.width * 0.3, y: cy + 80 },
+      { x: cx + cam.width * 0.3, y: cy + 60 },
+      { x: cx, y: cy + 180 }
     ];
 
-    // Fire particles near blocks
-    blockPositions.forEach(bp => {
-      for (let f = 0; f < 4; f++) {
-        const fire = this.add.circle(
-          bp.x + (Math.random() - 0.5) * 40,
-          bp.y + (Math.random() - 0.5) * 40,
-          4, 0xff4400, 0.4
-        ).setDepth(9);
-        this.tweens.add({ targets: fire, alpha: 0.1, y: fire.y - 15, duration: 600, yoyo: true, repeat: -1 });
-      }
-    });
+    switchPositions.forEach((p, i) => {
+      const sw = this.physics.add.image(p.x, p.y, 'pickup').setScale(SCALE).setDepth(10).setTint(0x4488ff);
+      this.tweens.add({ targets: sw, y: p.y - 10, duration: 800, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
 
-    blockPositions.forEach((bp) => {
-      const block = this.add.image(bp.x, bp.y, 'block').setScale(SCALE).setDepth(10).setInteractive();
-      block.cleared = false;
-      block.on('pointerdown', () => this.tryBlockClear(block));
-      this.blocks.push(block);
-    });
+      const label = this.add.text(p.x, p.y + 35, ['Think', 'Plan', 'Act'][i], {
+        fontSize: '11px', fontFamily: 'monospace', color: '#4488ff',
+        backgroundColor: '#000000aa', padding: { x: 4, y: 2 },
+        stroke: '#000000', strokeThickness: 1
+      }).setOrigin(0.5).setDepth(10);
 
-    // Action button
-    const abtn = this.add.image(this.cameras.main.width - 65, this.cameras.main.height - 90, 'action_btn')
-      .setScrollFactor(0).setDepth(50).setInteractive().setScale(1.2);
-    abtn.on('pointerdown', () => {
-      let nearest = null; let minDist = Infinity;
-      this.blocks.forEach(b => {
-        if (!b.cleared) {
-          const d = Phaser.Math.Distance.Between(this.player.x, this.player.y, b.x, b.y);
-          if (d < minDist) { minDist = d; nearest = b; }
+      this.physics.add.overlap(this.player, sw, () => {
+        if (sw.collected) return;
+        const speed = Math.sqrt(this.player.body.velocity.x ** 2 + this.player.body.velocity.y ** 2);
+        if (speed > this.quest.mechanicConfig.sprintThreshold) {
+          this.showTooFast(sw.x, sw.y);
+          return;
+        }
+        sw.collected = true;
+        sw.destroy();
+        label.destroy();
+        // Extinguish one fire wall
+        const wall = this.fireWalls[this.switchesFound];
+        if (wall) {
+          wall.forEach(flame => {
+            this.tweens.add({ targets: flame, alpha: 0, duration: 500, onComplete: () => flame.destroy() });
+          });
+        }
+        this.switchesFound++;
+        if (this.switchesFound >= 3) {
+          this.creature.clearTint();
+          this.time.delayedCall(600, () => this.completeQuest());
         }
       });
-      if (nearest && minDist < TS * 2.5) this.tryBlockClear(nearest);
     });
 
-    this.add.text(cx, 70, 'Slow down. Think. Find a way through.\nRushing makes it worse!', {
+    // Move player to bottom so they aren't on top of anything
+    this.player.setPosition(cx, cy + 250);
+
+    this.add.text(cx, 70, 'Find the switches. But slow down.\nRushing won\'t work here.', {
       fontSize: '11px', fontFamily: 'monospace', color: '#ff8844',
       align: 'center', backgroundColor: '#000000aa', padding: { x: 6, y: 4 }
     }).setOrigin(0.5).setScrollFactor(0).setDepth(50);
   }
 
-  tryBlockClear(block) {
-    if (block.cleared) return;
-    const speed = Math.sqrt(this.player.body.velocity.x ** 2 + this.player.body.velocity.y ** 2);
-    if (speed > this.quest.mechanicConfig.sprintThreshold) {
-      this.showFireSpread(block.x, block.y);
-      return;
-    }
-    block.cleared = true;
-    this.tweens.add({ targets: block, alpha: 0, scaleX: SCALE * 0.5, scaleY: SCALE * 0.5, duration: 400, onComplete: () => block.destroy() });
-    this.blocksRemaining--;
-    if (this.blocksRemaining <= 0) this.completeQuest();
-  }
-
-  showFireSpread(x, y) {
-    const fire = this.add.circle(x, y, 40, 0xff3300, 0.6).setDepth(15);
-    this.add.text(x, y - 35, 'Too fast! Fire spreads!', {
+  showTooFast(x, y) {
+    const warn = this.add.text(x, y - 35, 'Slow down! Think first.', {
       fontSize: '11px', fontFamily: 'monospace', color: '#ff4444',
       stroke: '#000000', strokeThickness: 2
     }).setOrigin(0.5).setDepth(15);
-    this.tweens.add({ targets: fire, alpha: 0, scaleX: 2.5, scaleY: 2.5, duration: 1200 });
+    const flare = this.add.circle(x, y, 30, 0xff3300, 0.5).setDepth(14);
+    this.tweens.add({ targets: [warn, flare], alpha: 0, duration: 1200, onComplete: () => { warn.destroy(); flare.destroy(); } });
   }
 
   // ----- CONNECTOR (collect) -----
@@ -1005,10 +1023,11 @@ class QuestScene extends Phaser.Scene {
       this.tweens.add({ targets: wallBlock, alpha: 0.7, duration: 1500, yoyo: true, repeat: -1 });
     }
 
+    const cw = this.cameras.main.width;
     const positions = [
-      { x: cx - 200, y: cy + 150 },
-      { x: cx + 200, y: cy + 130 },
-      { x: cx - 10, y: cy + 220 }
+      { x: cx - cw * 0.3, y: cy + 150 },
+      { x: cx + cw * 0.3, y: cy + 130 },
+      { x: cx, y: cy + 220 }
     ];
 
     positions.forEach((p, i) => {
@@ -1116,10 +1135,9 @@ class QuestScene extends Phaser.Scene {
       stroke: '#000000', strokeThickness: 2
     }).setOrigin(0.5).setDepth(10);
 
+    // NPC dialogue already played from create(), go straight to quiz
     this.time.delayedCall(500, () => {
-      this.dialogue.show(this.quest.npcName, this.quest.npcDialogue, () => {
-        this.showQuizQuestion();
-      });
+      this.showQuizQuestion();
     });
   }
 
