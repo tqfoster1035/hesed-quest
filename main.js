@@ -1378,7 +1378,7 @@ class BadgeScene extends Phaser.Scene {
     });
 
     // Replay button
-    const replayY = Math.max(msg.y + msg.height + 30, h - 50);
+    const replayY = msg.y + msg.height + 30;
     const replay = this.add.text(cx, replayY, 'Play Again', {
       fontSize: '14px', fontFamily: 'monospace', color: '#888888',
       backgroundColor: '#222222', padding: { x: 12, y: 6 }
@@ -1390,6 +1390,20 @@ class BadgeScene extends Phaser.Scene {
       SaveState.reset();
       this.scene.start('Title');
     });
+
+    // Enable vertical scrolling if content exceeds screen
+    const contentBottom = replayY + 40;
+    if (contentBottom > h) {
+      this.cameras.main.setBounds(0, 0, this.cameras.main.width, contentBottom + 30);
+      this.input.on('pointermove', (pointer) => {
+        if (pointer.isDown) {
+          this.cameras.main.scrollY -= (pointer.y - pointer.prevPosition.y);
+          this.cameras.main.scrollY = Phaser.Math.Clamp(
+            this.cameras.main.scrollY, 0, contentBottom + 30 - h
+          );
+        }
+      });
+    }
   }
 }
 
